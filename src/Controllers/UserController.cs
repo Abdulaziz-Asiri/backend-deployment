@@ -72,4 +72,13 @@ public class UserController : CustomBaseController
         if (isUser == null) return NotFound();
         return Accepted(_userService.UpdateOne(userId, user));
     }
+    [HttpPatch("updateRole")]
+    [ProducesResponseType(StatusCodes.Status202Accepted)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public ActionResult<UserReadDto?> UpdateRole(Guid userId, [FromBody] UserUpdateRolDto user)
+    {
+        UserReadDto? isUser = _userService.FindOne(userId);
+        if (isUser == null) return NotFound();
+        return Accepted(_userService.UpdateRole(userId, user));
+    }
 }

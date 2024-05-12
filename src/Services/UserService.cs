@@ -100,5 +100,13 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
             return _mapper.Map<UserReadDto>(user);
         }
 
+        public UserReadDto? UpdateRole(Guid userId, UserUpdateRolDto updateUser)
+        {
+            var user = _userRepository.FindOne(userId);
+            if (user == null) return null;
+            user.Role = updateUser.Role;
+            _userRepository.UpdateOne(user);
+            return _mapper.Map<UserReadDto>(user);
+        }
     }
 }
