@@ -76,6 +76,8 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
                 product.Name = updatedProduct.Name;
                 product.CategoryId = updatedProduct.CategoryId;
                 product.Price = updatedProduct.Price;
+                product.Image = updatedProduct.Image;
+                product.Description = updatedProduct.Description;
                 _productRepository.UpdateOne(product);
 
                 return _mapper.Map<ProductReadDto>(product);

@@ -54,8 +54,8 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
             Inventory? inventory = _inventoryRepository.FindOne(inventoryId);
             if (inventory == null) return null;
             inventory.Quantity = updateInventory.Quantity;
-            inventory.Color = updateInventory.Color;
-            inventory.Size = updateInventory.Size;
+            inventory.Flavor = updateInventory.Flavor;
+            inventory.Wight = updateInventory.Wight;
             _inventoryRepository.UpdateOne(inventory);
             return _mapper.Map<InventoryReadDto>(inventory);
         }
