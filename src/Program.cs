@@ -96,8 +96,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.MapControllers();
-app.UseAuthentication();
-app.UseAuthorization();
 app.UseCors(MyAllowSpecificOrigins);
 app.UseAuthentication();// Authentication first then Authorization
 app.UseAuthorization();

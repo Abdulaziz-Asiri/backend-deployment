@@ -10,9 +10,9 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Entities
         [Required]
         public int Quantity { get; set; } 
         [Required]
-        public string Color { get; set; }
+        public string? Flavor { get; set; }
         [Required]
-        public string Size { get; set; }
+        public string? Wight { get; set; }
         public List<OrderItem>? OrderItem { get; set; } // Navigation Property
     }
 }

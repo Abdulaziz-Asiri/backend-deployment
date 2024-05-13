@@ -49,10 +49,10 @@ namespace Backend.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
-                    b.Property<string>("Color")
+                    b.Property<string>("Flavor")
                         .IsRequired()
                         .HasColumnType("text")
-                        .HasColumnName("color");
+                        .HasColumnName("flavor");
 
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uuid")
@@ -62,10 +62,10 @@ namespace Backend.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("quantity");
 
-                    b.Property<string>("Size")
+                    b.Property<string>("Wight")
                         .IsRequired()
                         .HasColumnType("text")
-                        .HasColumnName("size");
+                        .HasColumnName("wight");
 
                     b.HasKey("Id")
                         .HasName("pk_inventories");
@@ -145,6 +145,14 @@ namespace Backend.Migrations
                     b.Property<Guid>("CategoryId")
                         .HasColumnType("uuid")
                         .HasColumnName("category_id");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text")
+                        .HasColumnName("description");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("text")
+                        .HasColumnName("image");
 
                     b.Property<string>("Name")
                         .IsRequired()
