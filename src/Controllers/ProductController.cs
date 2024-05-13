@@ -33,7 +33,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controllers
         [HttpGet("search")] //Action method for searching products by keyword
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<List<ProductReadDto>> Search(string keyword)
+    public ActionResult<List<ProductReadDto>> Search(string keyword)
         {
             List<ProductReadDto> foundProducts = _productService.Search(keyword);
             if (foundProducts.Count == 0)
