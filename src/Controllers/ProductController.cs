@@ -16,7 +16,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<IEnumerable<ProductReadDto>> FindAll([FromQuery(Name = "limit")] int limit, [FromQuery(Name = "offset")] int offset)
         {
-
+            
             return Ok(_productService.FindAll(limit, offset));
         }
 

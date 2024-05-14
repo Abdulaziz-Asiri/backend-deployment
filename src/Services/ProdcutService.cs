@@ -2,6 +2,7 @@ using AutoMapper;
 using sda_onsite_2_csharp_backend_teamwork.src.Abstractions;
 using sda_onsite_2_csharp_backend_teamwork.src.Entities;
 using sda_onsite_2_csharp_backend_teamwork.src.DTOs;
+using sda_onsite_2_csharp_backend_teamwork.src.Exceptions;
 
 namespace sda_onsite_2_csharp_backend_teamwork.src.Services
 {
@@ -44,6 +45,10 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
         public ProductReadDto FindOne(Guid productId)
         {
             Product? products = _productRepository.FindOne(productId);
+            if (products is null)
+            {
+                throw CustomErrorException.NotFound($"Product with id {productId} is not found");
+            }
             return _mapper.Map<ProductReadDto>(products);
         }
 

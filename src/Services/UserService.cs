@@ -36,6 +36,15 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
 
         public string? Login(UserLogInDto user)
         {
+            /*
+            - find the user 
+            - if there is no user return null (for bad request)
+            - compare passwords
+            - if true return userReadDto
+            - if false return null
+            
+            
+            */
             IEnumerable<User>? users = _userRepository.FindAll(0, 0);
             User? isUser = users.FirstOrDefault(u => u.Email == user.Email);
             if (isUser == null) return null;
