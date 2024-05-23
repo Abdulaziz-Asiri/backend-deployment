@@ -41,10 +41,19 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Repositories
             var findProduct = _products.Find(productId);
             return findProduct;
         }
-        public List<Product> Search(string keyword)
+        public List<Product> Search(int limit, int offset, string keyword)
         {
+            if (keyword != null)
+            {
+                return _databaseContext.Products
+                   .Where(p => p.Name.ToLower().Contains(keyword.ToLower()))
+                   .Skip(offset)
+                   .Take(limit)
+                   .ToList();
+            }
             return _databaseContext.Products
-                    .Where(p => p.Name.Contains(keyword))
+                     .Skip(offset)
+                   .Take(limit)
                     .ToList();
         }
         public Product UpdateOne(Product UpdateProduct)

@@ -14,7 +14,7 @@ public class UserController : CustomBaseController
     }
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    // [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public ActionResult<IEnumerable<UserReadDto>> FindAll([FromQuery(Name = "limit")] int limit, [FromQuery(Name = "offset")] int offset)
     {
         return Ok(_userService.FindAll(limit, offset));
@@ -23,6 +23,7 @@ public class UserController : CustomBaseController
     [HttpGet("{userId}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [Authorize(Roles = "Admin")]
     public ActionResult<UserReadDto?> FindOne(Guid userId)
     {
         IEnumerable<UserReadDto>? users = _userService.FindAll(0,0);
@@ -56,6 +57,7 @@ public class UserController : CustomBaseController
     [HttpDelete("{userId}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [Authorize(Roles = "Admin")]
     public ActionResult DeleteOne(Guid userId)
     {
         UserReadDto? deleteUser = _userService.FindOne(userId);
@@ -75,6 +77,7 @@ public class UserController : CustomBaseController
     [HttpPatch("updateRole")]
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [Authorize(Roles = "Admin")]
     public ActionResult<UserReadDto?> UpdateRole(Guid userId, [FromBody] UserUpdateRolDto user)
     {
         UserReadDto? isUser = _userService.FindOne(userId);

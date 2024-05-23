@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using sda_onsite_2_csharp_backend_teamwork.src.Entities;
 using sda_onsite_2_csharp_backend_teamwork.src.Abstractions;
 using sda_onsite_2_csharp_backend_teamwork.src.DTOs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace sda_onsite_2_csharp_backend_teamwork.src.Controllers
 {
@@ -12,13 +13,13 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controllers
         {
             _productService = productService;
         }
-        [HttpGet] //Action methods GET
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult<IEnumerable<ProductReadDto>> FindAll([FromQuery(Name = "limit")] int limit, [FromQuery(Name = "offset")] int offset)
-        {
-            
-            return Ok(_productService.FindAll(limit, offset));
-        }
+        // [HttpGet] //Action methods GET
+        // [ProducesResponseType(StatusCodes.Status200OK)]
+        // public ActionResult<IEnumerable<ProductReadDto>> FindAll([FromQuery(Name = "limit")] int limit, [FromQuery(Name = "offset")] int offset)
+        // {
+
+        //     return Ok(_productService.FindAll(limit, offset));
+        // }
 
         [HttpGet("{productId}")] //Action methods GET with Route attributes
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -30,12 +31,12 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controllers
             return Ok(foundProduct);
 
         }
-        [HttpGet("search")] //Action method for searching products by keyword
+        [HttpGet()] //Action method for searching products by keyword
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public ActionResult<List<ProductReadDto>> Search(string keyword)
+        public ActionResult<List<ProductReadDto>> Search([FromQuery(Name = "limit")] int limit = 100, [FromQuery(Name = "offset")] int offset = 1, [FromQuery(Name = "search")] string? search = null)
         {
-            List<ProductReadDto> foundProducts = _productService.Search(keyword);
+            List<ProductReadDto> foundProducts = _productService.Search(limit, offset, search);
             if (foundProducts.Count == 0)
                 return NotFound();
 
@@ -48,6 +49,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)] // documentation error status code
+        [Authorize(Roles = "Admin")]
         public ActionResult<ProductReadDto> CreateOne([FromBody] ProductCreateDto product)
         {
             if (product is not null)
@@ -62,6 +64,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controllers
         [HttpDelete("{productId}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]// documentation error status code
+        [Authorize(Roles = "Admin")]
         public ActionResult<Product?> DeleteOne(Guid productId)
         {
             var deletedProduct = _productService.DeleteOne(productId);
@@ -76,6 +79,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controllers
         [HttpPatch("{productId}")]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize(Roles = "Admin")]
         public ActionResult<Product> UpdateOne(Guid productId, [FromBody] ProductUpdateDto updateProduct)
         {
             var foundProduct = FindOne(productId);

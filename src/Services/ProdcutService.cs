@@ -8,6 +8,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
 {
     public class ProductService : IProductService
     {
+
         private IProductRepository _productRepository;
         private IConfiguration _config;
         private IMapper _mapper;
@@ -52,22 +53,26 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
             return _mapper.Map<ProductReadDto>(products);
         }
 
-        public List<ProductReadDto> Search(string keyword)
+        public List<ProductReadDto> Search(int limit, int offset, string search)
         {
             // Assuming _context is your DbContext and Products is your DbSet<Product>
-            var foundProducts = _productRepository.Search(keyword)
-            .Where(p => p.Name.Contains(keyword))
-            .Select(p => new ProductReadDto
-            {
-                // Map your Product entity to ProductReadDto
-                Id = p.Id,
-                CategoryId = p.CategoryId,
-                Name = p.Name,
-                Price = p.Price
-                // Map other properties as needed
-            })
-            .ToList();
+
+            var foundProducts = _productRepository.Search(limit, offset, search)
+       .Select(p => new ProductReadDto
+       {
+           // Map your Product entity to ProductReadDto
+           Id = p.Id,
+           CategoryId = p.CategoryId,
+           Name = p.Name,
+           Price = p.Price,
+           Image = p.Image,
+           Description = p.Description
+           // Map other properties as needed
+       })
+       .ToList();
             return foundProducts;
+
+
         }
 
 
