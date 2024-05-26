@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using sda_onsite_2_csharp_backend_teamwork.src.Abstractions;
 using sda_onsite_2_csharp_backend_teamwork.src.DTOs;
 using sda_onsite_2_csharp_backend_teamwork.src.Entities;
+using sda_onsite_2_csharp_backend_teamwork.src.Enums;
 using sda_onsite_2_csharp_backend_teamwork.src.Utils;
 
 namespace sda_onsite_2_csharp_backend_teamwork.src.Services
@@ -113,7 +114,15 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Services
         {
             var user = _userRepository.FindOne(userId);
             if (user == null) return null;
-            user.Role = updateUser.Role;
+            if (updateUser.Role.ToLower() == Role.Admin.ToString().ToLower())
+            {
+
+                user.Role = Role.Admin;
+            }
+            else
+            {
+                user.Role = Role.Customer;
+            }
             _userRepository.UpdateOne(user);
             return _mapper.Map<UserReadDto>(user);
         }

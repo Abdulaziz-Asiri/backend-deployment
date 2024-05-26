@@ -21,7 +21,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.DTOs
     public class UserUpdateDto
     {
         public string Name { get; set; }
-        public string Password { get; set; }
+        public string? Password { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
     }
@@ -32,6 +32,6 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.DTOs
     }
     public class UserUpdateRolDto
     {
-        public Role Role { get; set; }
+        public string Role { get; set; }
     }
 }
