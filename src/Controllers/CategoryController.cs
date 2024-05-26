@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using sda_onsite_2_csharp_backend_teamwork.src.Controllers;
 using sda_onsite_2_csharp_backend_teamwork.src.Entities;
@@ -23,6 +24,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controller
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Authorize(Roles = "Admin")]
         public ActionResult<CategoryReadDto> CreateOne([FromBody] CategoryCreateDto category)
         {
             var createdCategory = _categoryService.CreateOne(category);
@@ -48,6 +50,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controller
 
         [HttpDelete("{categoryId}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [Authorize(Roles = "Admin")]
 
         public ActionResult< CategoryReadDto?> DeleteOne([FromRoute] Guid categoryId)
         {
@@ -61,6 +64,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controller
 
         [HttpPatch("{categoryId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [Authorize(Roles = "Admin")]
 
         public ActionResult<CategoryReadDto> UpdateOne(Guid categoryId, [FromBody] CategoryUpdateDto updatedCategory)
         {

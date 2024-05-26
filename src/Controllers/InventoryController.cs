@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using sda_onsite_2_csharp_backend_teamwork.src.Abstractions;
 using sda_onsite_2_csharp_backend_teamwork.src.DTOs;
@@ -8,7 +9,6 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controllers
     public class InventoryController : CustomBaseController
     {
         private IInventoryService _inventoryService;
-
         public InventoryController(IInventoryService inventoryService)
         {
             _inventoryService = inventoryService;
@@ -34,6 +34,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Authorize(Roles = "Admin")]
         public ActionResult<InventoryReadDto?> CreateOne([FromBody] InventoryCreateDto newInventory)
         {
             if (newInventory == null) return BadRequest();
@@ -45,7 +46,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controllers
         [HttpDelete("{inventoryId}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteOne(Guid inventoryId)
         {
             InventoryReadDto? deleteInventory = _inventoryService.FindOne(inventoryId);
@@ -57,6 +58,7 @@ namespace sda_onsite_2_csharp_backend_teamwork.src.Controllers
         [HttpPatch("{inventoryId}")]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize(Roles = "Admin")]
         public ActionResult<InventoryReadDto?> UpdateOne(Guid inventoryId, [FromBody] InventoryUpdateDto updateInventory)
         {
             InventoryReadDto? findInventory = _inventoryService.FindOne(inventoryId);
