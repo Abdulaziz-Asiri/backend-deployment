@@ -3,7 +3,7 @@
 This project was developed as part of the Software Development Bootcamp at the Saudi Digital Academy. The goal of the bootcamp was to enhance full-stack development skills, particularly focusing on backend technologies using C# and the .NET framework. This project showcases the practical application of software engineering principles learned during the bootcamp, including object-oriented programming, data structures, Building API endpoint(RESTful).
 
 
-`This is a teamwork assignment where you will work as a team within your group`
+
 ## Installation
 1. Clone the repository:
    ```
